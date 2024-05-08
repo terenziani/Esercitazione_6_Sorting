@@ -14,7 +14,8 @@
 */
 
 
-
+// Notiamo che per dimensioni di vettori ridotte, la funzione Bubblesort è più rapida
+// Più la dimensione aumenta invece, più risulta conveniente utilizzare Mergesort, avendo infatti un costo computazionale di n*log2(n)
 
 
 #include <iostream>
@@ -56,19 +57,17 @@ int main(int argc, char * argv[])
         for (int k=0; k<=iterazioni-1; ++k)
         {
             //creo il vettore per ciascuna iterazione, inserendo valori interi random compresi tra 0 e 1000 in ogni elemento del vettore
-            vector<int> vettore={};
-            vettore.reserve(dimensione);
-            for (int j=0 ; j<=dimensione-1 ; ++j)
-            {
-                vettore.push_back(rand() %1001);
+            vector<int> vettore(dimensione);
 
-            }
+            for (int j=0 ; j<=dimensione-1 ; ++j)
+                vettore[j] = rand() % 1001;
+
 
 
 
             //faccio una copia dei vettori per non modificare gli originali
-            vector<int> vect_merge= vettore;
-            vector<int> vect_bubble= vettore;
+            vector<int> vect_merge = vettore;
+            vector<int> vect_bubble = vettore;
 
 
             //applico MergeSort e calcolo il tempo impiegato
@@ -76,13 +75,13 @@ int main(int argc, char * argv[])
             SortLibrary::MergeSort(vect_merge);
             chrono::steady_clock::time_point t_end_Merge = chrono::steady_clock::now();
 
-            double durata_merge= chrono::duration_cast<chrono::microseconds>(t_end_Merge-t_begin_Merge).count();
+            double durata_merge = chrono::duration_cast<chrono::microseconds>(t_end_Merge-t_begin_Merge).count();
 
 
 
             //applico BubbleSort e calcolo il tempo impiegato
             chrono::steady_clock::time_point t_begin_Bubble = chrono::steady_clock::now();
-            SortLibrary::MergeSort(vect_bubble);
+            SortLibrary::BubbleSort(vect_bubble);
             chrono::steady_clock::time_point t_end_Bubble = chrono::steady_clock::now();
 
             double durata_bubble= chrono::duration_cast<chrono::microseconds>(t_end_Bubble-t_begin_Bubble).count();
